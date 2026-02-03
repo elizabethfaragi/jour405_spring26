@@ -27,14 +27,29 @@ umd_fees <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/hea
 umd_fees_pct <- umd_fees |> mutate(pct_change = (`Fall 2024`- `Fall 2021`)/`Fall 2021` * 100)
 ```
 
+```{r}
+umd_fees_pct_2024 <- umd_fees |> mutate(pct_change = (`Fall 2025`- `Fall 2024`)/`Fall 2024` * 100)
+```
 
 
 ### Task 4: Describe our results
 
 Write a few sentences about what you found in the data. What's the story here?
 
+All categories are increasing, whether analyzing from 2021 to 2024 or from 2024 to 2025. What's interesting is Student Sustainability increased the most of all from 2021 to 2024, but did not increase AT ALL from 2024 to 2025. In addition, when going from 2024 to 2025, all the percent changes are relatively low as opposed to from 2021 to 2024, which shows that each year they aren't change drastically but they are increasing steadily. Student activities had an increase by 14%, the highest from 2024-2025, showing that UMD does put money into creating student activities. 
 
+```{r}
+comp <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/class_composition.csv")
 
+comp |>
+  summarize(
+    mean_first = mean(first_year),
+    mean_soph = mean(sophomore),
+    mean_junior = mean(junior),
+    mean_senior = mean(senior),
+    mean_grad = mean(grad)
+  )
+```
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
