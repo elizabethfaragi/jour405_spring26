@@ -45,6 +45,7 @@ crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/populat
 
 Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations?
 
+Overall, the trend I'mn seeing is that crime rate is decreasing. Both property crime rate and violent crime rate have decreased dramatically from 1975 to 2020. The violent crime rate decreased from about 71 to 41, and property rate decreased from 520 to 162. Yes, there are some years where it increased from the year before, but overal MD is decreasing. The year with the highest violent crime rate, 99.9, was 1992 and the lowest violent crime rate, 41, is 2020. This decrease does match my expectations because I think, overall, MD has been getting safer, as well as the country as a whole.  
 
 
 
