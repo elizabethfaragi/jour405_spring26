@@ -75,7 +75,7 @@ ggplot(accidents, aes(x = date, y = total)) +
 ### Task 1 (3 points)
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
-ANSWER HERE
+There's a random dip right after the 2020 mark. It's not just a few data points, the entire pattern slopes down quickly and dramatically and them immedietely comes back up. I wonder why the # of accidents dropped there, but based on reasoning I'm thinking that has to do with quarantine and Covid-19. I also noticed that the highest data point (almost 60 accidents) and the lowest (almost 0) occur very close together, right before 2022. I'd like to know how close they actually were on the timeline of days and what caused such a change between months or even days. 
 
 The daily data is quite noisy, so let's also look at weekly patterns:
 
@@ -114,7 +114,7 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
 ### Task 2 (2 points)
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
-ANSWER HERE
+Friday and Saturday have the highest, which makes sense. Weekends would lead to more nights out, which could lead to more drunk driving, which would then lead to more car accidents. Monday and Sunday have the lowest data points, but Tuesday and Wednesday also have low average accidents. This would make sense, as those days correlate to work days, so majority of people are just driving to and from work, therefore less cars on the road as a whole (minus those commuting hours), less drinking, and less accidents. 
 
 ## Calculating Z-Scores
 
@@ -161,7 +161,7 @@ unusual_days |>
 ### Task 3 (3 points)
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
-ANSWER HERE
+On October 29, 2021, the highest number of car accidents, there was a massive rainstorm that went up the entire east coast and, specifically in PG County, caused major flooding. I'd assume that much of these accident numbers are results of the flooding and heavy rains that Maryland saw that day. 
 
 Let's visualize these unusual days:
 
@@ -210,7 +210,7 @@ unusual_dow |>
 ### Task 4 (3 points)
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
-ANSWER HERE
+The first and third day-of-week z scores were the same as the overall scores, but the second differed. I'm also noticing that the day-of-week scores are usually on weekdays, while the overall z-scores were majority on Fridays or Saturdays. The day-of-week z-scores are really helpful because we can use these to see which days were unsual in comparison with that day of the week. In my opinion, it's more unusual to have 45 accidents on a Wednesday than 45 on a Friday because what's happening on Wednesday that would cause that many accidents? Fridays make sense because everyone is going out, but not Wednesdays. 
 
 Let's see how many unusual days we have for each day of the week:
 
@@ -289,7 +289,7 @@ unusual_monthly |>
 ### Task 5 (2 points)
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
-ANSWER HERE
+There's a generla upward trend from June to September, with September being the highest month overall. After that, it dips down. I'm also sedeing a jump from April to May, which I think has to do with the beginning of warm weather and more people getting back on the roads and going out after winter cold. The biggest jump is from August to September, which is usually the end of summer time and the beginning of school, so maybe families are going on vacations and driving around more trying to get the last bit of summer goals done.  
 
 ## Identifying Extreme Outliers
 
@@ -314,9 +314,16 @@ if(nrow(extreme_outliers) > 0) {
 ### Task 6 (2 points)
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
-ANSWER HERE
+10 out of the 12 on that list happen on a Friday or Saturday. The only two that don't, Monday and Sunday, are extreme outliers in the opposite direction, with extremely low number of car accidents. This continues to show that, on average, more accidents are happening on weekends. 
 
 ## Your Best Story Pitch
 
+I'd like to look into the weekdays with abnormally high z-scores: 5/5/2021, 12/10/24, 10/21/21 are all days with high numbers of accidents and high z-scores compared to other weekdays. I want to know why a random Wednesday, Tuesday and Thursday have high numbers of car accidents that are similar to Fridays or Saturdays. Weekends make sense, but why do some weekdays, when people should in theory just be going to work, have insane car accident numbers? 
+
 ### Task 7 (5 points)
 Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
+
+Headline: Why some weekdays have the same number of car accidents as weekends
+Lede: Overall, Fridays and Saturdays have a higher average of car accidents, which isn't surprising. It's the weekend, people are going out and enjoying themselves. But, why does a random Wednesday in May 2021 have the same number of car accidents as other weekend days? Why does a Tuesday in December 2021 have a high number of accidents. Let's explore why some random PG County weekdays have really high car accident numbers compared to other weekdays. 
+
+I'd talk to police who wrote the accident reports, the people who got in the accidents if possible, any experts on cars or crash reports. 
