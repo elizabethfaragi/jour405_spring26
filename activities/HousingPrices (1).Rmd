@@ -49,8 +49,8 @@ Replace the REPLACE_ME values to calculate the mean, standard deviation and coun
 ```{r}
 new_stats <- home_data |> 
   summarise(
-    mean = mean(REPLACE_ME),
-    sd = sd(REPLACE_ME),
+    mean = mean(new_prices),
+    sd = sd(new_prices),
     n = n()
   )
 
@@ -59,7 +59,7 @@ new_stats
 
 **Answer this question:** How does the new average compare to the prior average of $285,000? How much higher is it in dollar terms? Does that seem like a big difference to you? What else would you want to know?
 
-ANSWER HERE
+The new average is higher by $19,500. That seems like a big difference for home prices because $19,500 is a lot of money. However, I'm more interested in the new standard deviation, because the new sd is much lower than the old one.  
 
 ### Task 3: Visualize the distribution (1 point)
 
@@ -97,7 +97,7 @@ ggplot(home_data, aes(x = sale_price)) +
 
 **Answer this question:** Look at where the old average (red dashed line) falls relative to the new sales. How many of the 14 homes sold for more than the old average? What does the histogram tell you about the spread of the new prices?
 
-ANSWER HERE
+It looks like all of the new sales sold for more than the old average. The spread looks pretty normal and it also looks very close together, which reflects the smaller standard deviation. The values are all much closer together. 
 
 ### Task 4: Set up and perform a hypothesis test (2 points)
 
@@ -105,18 +105,18 @@ This is where we formally test the officials' claim. Fill in the REPLACE_ME valu
 
 **Hypotheses:**
 
-- **H₀ (Null):** REPLACE_ME
-- **H₁ (Alternative):** REPLACE_ME
+- **H₀ (Null):** The new light rail has not increased property value. 
+- **H₁ (Alternative):** The new light rail has increased property value. 
 
 ```{r}
 # Set the significance level
-alpha <- REPLACE_ME
+alpha <- 0.05
 
 # Perform a one-sample t-test
 # Since we want to know if home values INCREASED, we use alternative = "greater"
 t_test_result <- t.test(
   home_data$sale_price,
-  mu = REPLACE_ME,
+  mu = prior_mean,
   alternative = "greater"
 )
 
@@ -125,7 +125,7 @@ t_test_result
 
 **Answer this question:** Look at the p-value. Is it less than our alpha of 0.05? What does this mean for our null hypothesis — can we reject it? What can we now say about the officials' claim?
 
-ANSWER HERE
+The p-value is less than 0.05 (0.0000181 < 0.05), so we can reject the null hypothesis. We can say that the official's claims may be correct but we can definitely say that there has not been no change to property values. 
 
 ### Task 5: Interpret the results with a confidence interval (2 points)
 
@@ -155,7 +155,7 @@ story_stats
 
 **Answer this question:** The 95% confidence interval tells us the range where the true average home price likely falls. Does that range include the old average of $285,000? What does that tell you?
 
-ANSWER HERE
+It does not inclue the old value, which tells me that property value did increase. If the range included the value, I wouldn't necessarily say the property value increased, but because the old average isn't even in the interval and, furthermore, isn't even close to the lower endpoint, the property value did increase. 
 
 ### Task 6: Calculate the effect size (3 points)
 
@@ -166,7 +166,7 @@ We've established that the increase is statistically significant — it's real, 
 Replace the REPLACE_ME values.
 
 ```{r}
-effect_size <- (mean(new_prices) - REPLACE_ME) / REPLACE_ME
+effect_size <- (mean(new_prices) - prior_mean) / prior_sd
 
 effect_size_label <- case_when(
   abs(effect_size) < 0.2 ~ "Negligible",
@@ -185,7 +185,7 @@ tibble(
 
 **Answer this question:** The effect size is "medium." In dollar terms, the average increase is about $19,500. But remember that the standard deviation of home prices in this neighborhood was $32,000 *before* the transit line — meaning prices already varied by tens of thousands of dollars from sale to sale. Given that context, does a $19,500 increase seem large or modest? How does the effect size help you think about this differently than just looking at the dollar amount?
 
-ANSWER HERE
+It seems modest because the new average price was within one SD of the old average with the old SD. So, it didn't necessarily change too much because that new average price was still a price at the time. Using standard deviation and the average helps see how much the new prices changed and whether or not the big dollar change was actually effective.   
 
 ### Task 7: What's the story? (6 points)
 
@@ -193,11 +193,12 @@ You now have all the statistical evidence. But writing the story requires more t
 
 **Part A:** The local officials are going to claim the transit line increased home values. Based on your analysis, is that claim supported? Write 2-3 sentences for the top of your story that accurately reflect both the statistical significance AND the effect size. Don't just echo the officials' talking points — interrogate them.
 
-ANSWER HERE
+New data suggests that home property values have increased a moderate amount since the construction of the new transit line. The average home value increased by 6.8%, a $19,500 increase. 
 
 **Part B:** A $19,500 increase is real and statistically significant, but what *else* could explain rising home prices in this neighborhood? List at least two alternative explanations that a good reporter would want to investigate before attributing the increase entirely to the transit line.
 
-ANSWER HERE
+Just the general housing market increasing because demand is going up for homes all around the country 
+New houses are going on sale that have either just been built or renovated, so they would cost more. 
 
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
