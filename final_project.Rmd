@@ -9,9 +9,46 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 
 ```{r}
 library(tidyverse)
+library(readr)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+library(readr)
+nfl_attendance_25 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSbp3ApjVnRb1Hn5ZvAljgdUfAo_9h2SUpMDpWohkibZFXXuxdfflDqhQNo8bDv6T6bvagd9ElXe8Tq/pub?gid=1860385982&single=true&output=csv")
+```
+```{r}
+nfl_attendance_24 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTJD4pEJMx2E6ZwgRGAOYgzLA-hlPgi4ncAIChFKTQqj2VQXNB0GHH5WW4JIY2ty7pCMCKgyKd8yvp9/pub?gid=1809535861&single=true&output=csv")
+```
+```{r}
+nfl_attendance_23 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSH4DJykatnnOPVRRNaXXDFbayGwSzdBe0E9WCOO2cVaeyYDibp1tBNWHLS-1E0EcNl8Su5W3LzNf6A/pub?gid=1071365491&single=true&output=csv")
+```
+```{r}
+nfl_attendance_22 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSMGvArhs4WtmqIPFdiikCpZzk4JqOGGEP8IZzgUdxw-qld5K2qRJWOVE-lNn7KbeOQC-bx9a9MV40j/pub?gid=1753832751&single=true&output=csv")
+```
+```{r}
+nfl_attendance_21 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS5iE43Sg9njlwgoYc1zJuHyI9rFbh6BgSpU2KbE0XW4TWwBcba2vCSueIeed9iZH5Ozu8Ig8hxyBub/pub?gid=1772701353&single=true&output=csv")
+```
+```{r}
+nfl_attendance_20 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSXKYT-bUHh6v_LABNbyv1rKUuWKGeCvyQxlYkn321fwUA-LP4ITAbsFww5DYS5Z1eP9K9j2X1nTufC/pub?gid=1406948821&single=true&output=csv")
+```
+```{r}
+nfl_attendance_19 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQhQ2wVYW5tjnMFhRQPAPHODZwFi2JItJy2D9W7pHurmpFQCLdw15rjYJ5_Cv3fJLm6DvnAztX-87k7/pub?gid=879147847&single=true&output=csv")
+```
+```{r}
+nfl_attendance_18 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSKFNWmcoUaCL0jYn54Ayf8UGxJ5R3qMAxXebDN_XyIa0QolvsP6cepJHFhK9CPmjjU36THHwxiAosZ/pub?gid=1396054314&single=true&output=csv")
+```
+```{r}
+nfl_attendance_17 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vThICcScQU8VsKd_U2rV9hJlmpxUAmoA_Cs4zGtzrWH8kPZV_BrnieixrSyW4XYDfF6h8yWDP4M_LHV/pub?gid=963374669&single=true&output=csv")
+```
+```{r}
+nfl_attendance_16 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSGzNDmciJOvJNuIhpIuO55_LUlphWq6Pq-bSORV-MDPQjKA-3sjRgo4hRYP01Z_31rz6tpqBUIgk1x/pub?gid=51438010&single=true&output=csv")
+```
+```{r}
+nfl_attendance_15 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTJcopswsvGlddmiOCN63p_OCuJcGWjcYg4wbVRNVwc_8lu7NSU-vHdI0vO9FGFMwqfH8LEFzibPo3F/pub?gid=962935019&single=true&output=csv")
+```
+
+
+
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
 
