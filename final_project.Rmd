@@ -5,7 +5,17 @@ output: html_notebook
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+
+Final Project Test Ideas: 
+- I definitely want to run a simulation to see if, when I randomly sample certain chiefs games, where they compare to games that Taylor Swift attended. 
+- In my brain, what I'm going to consider "Taylor Swift Affected Games" are the games she attended and then the two games afterwards. I'll take the mean and SD of those games and consider that the population of Taylor Swift games. I want to then compare randomly sampled games from before 2023 (before Travis and Taylor attended) to those games and see if there is any change/difference.
+- I also kind of want to compare whether or not attendance changes in the two games after. I could maybe compare the games that Taylor attends to the two games following, but I'm unsure of how I could do that. I could find the mean of Taylor games and then the mean of the games following, but I don't know if that would work. 
+- I want to do an hypothesis test but I'm unsure how to go about it. The null would be Taylor Swift doesn't affect in-person Chief's games attendance. The alternate hypothesis would be Taylor Swift does affect it. I'm not exactly sure how I could simulate that, so I'd need some help. 
+- I also think I could analyze how the game she attended (and the game the week after) compare to previous years with the same opponent, to try and control for who they are playing. For example, if Taylor attended the Eagles game in 2024 and the game after was against the 49ers, I could compare how attendence for Chiefs vs. Eagles and Chiefs vs. 49ers attendance was in previous years. 
+- I feel like my biggest struggle right now is getting the data to work with me. I can't even find the mean attendance by week because some of my columns aren't numeric. I tried to even create a function to do it, but I just can't figure it out. I also think with a lot of these ideas I'm going to need to reformat the data to make it easier for me to manipulate, but I'm not sure how to do that.  
+- I'm also under the impression that the null hypothesis is going to remain true because Chiefs games are popular, but that's kind of what I want to prove anyway. 
 
 ```{r}
 library(tidyverse)
@@ -46,6 +56,43 @@ nfl_attendance_16 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1v
 ```{r}
 nfl_attendance_15 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTJcopswsvGlddmiOCN63p_OCuJcGWjcYg4wbVRNVwc_8lu7NSU-vHdI0vO9FGFMwqfH8LEFzibPo3F/pub?gid=962935019&single=true&output=csv")
 ```
+```{r}
+chiefs_mean_25 <- 1223837/17
+chiefs_mean_25
+```
+
+```{r}
+chiefs_mean_24 <- 1144982/16
+chiefs_mean_24
+```
+```{r}
+chiefs_mean_23 <- 1205847/17
+chiefs_mean_23
+```
+```{r}
+chiefs_mean_22 <- 1202995/17
+chiefs_mean_22
+```
+
+```{r}
+chiefs_mean_21 <- 1192945/17
+chiefs_mean_21
+```
+
+```{r}
+chiefs_mean_20 <-1202995/17
+chiefs_mean_20
+```
+
+```{r}
+chiefs_mean_19 <-1115771/16
+chiefs_mean_19
+```
+
+```{r}
+chiefs_mean_18 <- 
+```
+
 
 
 
