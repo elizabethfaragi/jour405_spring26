@@ -88,11 +88,34 @@ chiefs_mean_20
 chiefs_mean_19 <-1115771/16
 chiefs_mean_19
 ```
-
 ```{r}
-chiefs_mean_18 <- 
+nfl_attendance <- bind_rows(
+ nfl_attendance_25 |> mutate(season = 2025) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_24 |> mutate(season = 2024) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_23 |> mutate(season = 2023) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_22 |> mutate(season = 2022) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_21 |> mutate(season = 2021) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_20 |> mutate(season = 2020) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_19 |> mutate(season = 2019) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_18 |> mutate(season = 2018) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_17 |> mutate(season = 2017) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_16 |> mutate(season = 2016) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
+ nfl_attendance_15 |> mutate(season = 2015) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance))
+) |> filter(!is.na(attendance))
 ```
 
+```{r}
+nfl_attendance %>%
+  filter(season = 2025) %>%
+  group_by(Tm = Kansas City Chiefs) %>%
+  summarize(mean(attendance))
+
+**this code doesnt work i still cant find the mean**
+```
+
+```{r}
+
+```
 
 
 
