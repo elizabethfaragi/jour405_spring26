@@ -106,9 +106,8 @@ nfl_attendance <- bind_rows(
 
 ```{r}
 nfl_attendance %>%
-  filter(season = 2025) %>%
-  group_by(Tm = Kansas City Chiefs) %>%
-  summarize(mean(attendance))
+  filter(Tm = Kansas City Chiefs) %>%
+
 
 **this code doesnt work i still cant find the mean**
 ```

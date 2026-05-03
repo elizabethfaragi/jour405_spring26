@@ -9,7 +9,7 @@ Multiple regression analysis is a statistical method used to understand the rela
 
 ```{r setup}
 library(tidyverse)
-#install.packages('corrplot')
+install.packages('corrplot')
 library(corrplot)
 ```
 
@@ -54,7 +54,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+The adjusted r-squared and the p-value, as well as the F-statistic, suggest that the model is statistically significant and the variability within the wins is mostly covered. However, I don't like that the min and max residuals suggest that data points could still be off by up to four points in either direction kind of scares me. I don't know if I trust this model yet. 
 
 ## Correlation Analysis
 
@@ -80,8 +80,10 @@ The results from our correlation analysis show the strength of the relationships
 
 Which of these three factors - Yards Gained, Takeaways and Points Scored - have the most impact on wins? Are there any that do not seem impactful at all?
 
-ANSWER HERE
+Points scored has the most impact on wins, which seems obvious because obviously having more points scored is going to lead to more wins. Yards gained has the least impact, but it still has somewhat of an impact on wins. 
 
 ## Using the Model (3 points)
 
 Without using the words "multiple regression model", describe how you could use this model to cover a team or game.
+
+You could use this model to analyze how yards gained affects wins across different teams throughout the NFL -- maybe it changes depending on the team. You could also see how points scored affects wins across different teams, considering that many football games are high scoring for both teams so it might be interesting to see whether yards gained or takeaways are the seccond factor affecting wins for different teams. 

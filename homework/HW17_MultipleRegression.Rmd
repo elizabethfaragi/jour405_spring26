@@ -1,6 +1,6 @@
 ---
 title: "Multiple Regression Analysis: Maryland Voter Turnout"
-name: "YOUR NAME HERE"
+name: "Elizabeth Faragi"
 ---
 
 # Introduction
@@ -9,7 +9,7 @@ Multiple regression analysis is a statistical method used to understand the rela
 
 ```{r setup}
 library(tidyverse)
-#install.packages('corrplot')
+install.packages('corrplot')
 library(corrplot)
 ```
 
@@ -26,7 +26,7 @@ head(md_turnout)
 
 Before building our model, let's explore the data to understand the variables and their relationships. Examine the correlation matrix to see how the independent variables relate to each other and to the dependent variable (voter turnout). Which variables seem to be correlated? Are there any that are not correlated at all? Also look at the multiple scatterplots. Which variables seem to have a linear relationship with the dependent variable? Which do not?
 
-ANSWER HERE
+It seems like having a bachelor's degree or higher is correlated with voter turnout, although I will say that all of the voter turnout for most of the counties are pretty high, so I'm wondering if voter turnout in general for Maryland is just high and analyzing it is gonna be hard.  
 
 
 ```{r}
@@ -89,7 +89,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Examine the output of the model, checking the coefficients, residuals, and overall model fit. How well does this multiple variable model predict turnout? Do any of the variables seem to be insignificant? Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+Looking at the scatterplot, none of the variables really seem to predict voter turnout. I'm seeing a lot of clusters of data points in one spot and no real line. None of the variables show data points that actually follow the line of best fit, which leads me to believe that none of these variables are useful. As well, the min and max of residuals are -0.054 and 0.02, which gives a wide spread of variability in both directions. This is concerning to me, even though the adjusted r-squared is 0.8, which accounts for most of the variability in the data.   
 
 ```{r}
 # Build initial model with all predictors
@@ -103,19 +103,19 @@ summary(initial_model)
 
 Create three alternative models by adding or removing variables to see if we can improve the model's performance. Turnout will always be the dependent variable, but you should alter the independent variables by removing or adding some. Then compare the models using adjusted R-squared values. Are any of the models significantly better than the others?
 
-ANSWER HERE
+The full model is still significantly better than any of my models. I think that's always going to be the case because having more variables controlled for/analyzing across multiple variables is always going to account for more of the variability. My best model was model 4, which used population, income, median_age, and pct_white, which used the most variables across my four models, which again furthers my understanding that analyzing across more variables produces a better model. 
 
 ```{r}
 # Model 2
-model2 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model2 <- lm(turnout ~ population + pct_white, data = md_turnout)
 summary(model2)
 
 # Model 3
-model3 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model3 <- lm(turnout ~ pct_bachelors_higher + pct_unemployed + income, data = md_turnout)
 summary(model3)
 
 # Model 4
-model4 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model4 <- lm(turnout ~ population + income + median_age + pct_white, data = md_turnout)
 summary(model4)
 
 # Compare models
@@ -144,4 +144,4 @@ ggplot(model_comparison, aes(x = reorder(Model, Adjusted_R_squared), y = Adjuste
 
 Without using the words "multiple regression model", describe how you could use this analysis to cover an election or voter participation story.
 
-ANSWER HERE
+You could use this analysis to predict why a certain county might have greater voter turnout than a different county based on these variables from the county. You could also compare these predictions across similar counties across the United States and see how voter turnout changes there. 
