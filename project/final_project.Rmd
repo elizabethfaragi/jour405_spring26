@@ -105,15 +105,86 @@ nfl_attendance <- bind_rows(
 ```
 
 ```{r}
-nfl_attendance %>%
-  filter(Tm = Kansas City Chiefs) %>%
-
-
-**this code doesnt work i still cant find the mean**
+nfl_attendance |>
+  filter(season == 2025, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
 ```
 
 ```{r}
+nfl_attendance |>
+  filter(season == 2024, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2023, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2022, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2021, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2020, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2019, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2018, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2017, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2016, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+nfl_attendance |>
+  filter(season == 2015, Tm == "Kansas City Chiefs") %>%
+  group_by(Tm) |>
+  summarize(avg_attend = mean(attendance))
+```
+```{r}
+superbowl_winners <- tibble(
+  Year = c(2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015),  # season years
+  Winner = c("Eagles", "Chiefs","Chiefs", "Rams", "Buccaneers", "Chiefs", "Patriots", "Eagles", "Patriots","Broncos","Patriots") 
+)
 
+superbowl_winners <- superbowl_winners |>
+  mutate(Year = as.character(Year))
+
+nfl_attendance <- nfl_attendance |>
+  mutate(season = as.character(season))
+
+nfl_attendance <- nfl_attendance %>%
+  left_join(superbowl_winners, by = c("season" = "Year"))
 ```
 
 
