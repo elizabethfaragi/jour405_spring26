@@ -22,6 +22,11 @@ library(tidyverse)
 library(readr)
 ```
 
+Here, I am loading up the tidyverse and readr to allow myself to analyze the data correctly. 
+
+
+
+
 ```{r}
 library(readr)
 nfl_attendance_25 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSbp3ApjVnRb1Hn5ZvAljgdUfAo_9h2SUpMDpWohkibZFXXuxdfflDqhQNo8bDv6T6bvagd9ElXe8Tq/pub?gid=1860385982&single=true&output=csv")
@@ -47,38 +52,11 @@ nfl_attendance_16 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1v
 nfl_attendance_15 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTJcopswsvGlddmiOCN63p_OCuJcGWjcYg4wbVRNVwc_8lu7NSU-vHdI0vO9FGFMwqfH8LEFzibPo3F/pub?gid=962935019&single=true&output=csv")
 ```
 
-```{r}
-chiefs_mean_25 <- 1223837/17
-chiefs_mean_25
-```
+Here, I loaded up all my data from published spreadsheets I created. The data includes weekly attendance to NFL stadiums from 2015 to 2025. Each spreadsheet has the attendance to each stadium by week for each season. 
 
-```{r}
-chiefs_mean_24 <- 1144982/16
-chiefs_mean_24
-```
-```{r}
-chiefs_mean_23 <- 1205847/17
-chiefs_mean_23
-```
-```{r}
-chiefs_mean_22 <- 1202995/17
-chiefs_mean_22
-```
 
-```{r}
-chiefs_mean_21 <- 1192945/17
-chiefs_mean_21
-```
 
-```{r}
-chiefs_mean_20 <-1202995/17
-chiefs_mean_20
-```
 
-```{r}
-chiefs_mean_19 <-1115771/16
-chiefs_mean_19
-```
 ```{r}
 nfl_attendance <- bind_rows(
  nfl_attendance_25 |> mutate(season = 2025) |> pivot_longer(starts_with("Week"),names_to = "week",values_to = "attendance",values_transform = list(attendance = as.character) ) |>mutate(attendance = parse_number(attendance)),
@@ -95,77 +73,16 @@ nfl_attendance <- bind_rows(
 ) |> filter(!is.na(attendance))
 ```
 
-```{r}
-nfl_attendance |>
-  filter(season == 2025, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
+Here, I combined all the spreadsheet and data into one object so it's easily accessible. I also switched the weeks attendance into columns rather than rows, so I was able to find the average attendance across a season for a specific team. 
 
-```{r}
-nfl_attendance |>
-  filter(season == 2024, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2023, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2022, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2021, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2020, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2019, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2018, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2017, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2016, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
-```{r}
-nfl_attendance |>
-  filter(season == 2015, Tm == "Kansas City Chiefs") %>%
-  group_by(Tm) |>
-  summarize(avg_attend = mean(attendance))
-```
+
+
+
+
 ```{r}
 superbowl_winners <- tibble(
   Year = c(2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015),  # season years
-  Winner = c("Eagles", "Chiefs","Chiefs", "Rams", "Buccaneers", "Chiefs", "Patriots", "Eagles", "Patriots","Broncos","Patriots") 
+  winner = c("Philadelphia Eagles", "Kansas City Chiefs","Kansas City Chiefs", "Los Angeles Rams", "Tampa Bay Buccaneers", "Kansas City Chiefs", "New England Patriots", "Philadelphia Eagles", "New England Patriots","Denver Broncos","New England Patriots") 
 )
 
 superbowl_winners <- superbowl_winners |>
@@ -177,6 +94,9 @@ nfl_attendance <- nfl_attendance |>
 nfl_attendance <- nfl_attendance %>%
   left_join(superbowl_winners, by = c("season" = "Year"))
 ```
+
+
+
 ```{r}
 superbowl_winners <- superbowl_winners |>
   mutate(next_season = Year + 1)
@@ -184,8 +104,8 @@ superbowl_winners <- superbowl_winners |>
 
 ```{r}
 defending_champs <- superbowl_winners |>
-  select(next_season, Winner) |>
-  rename(season = next_season, is_defending_champs = Winner)
+  select(next_season, winner) |>
+  rename(season = next_season, defending_champ = winner)
 ```
 
 ```{r}
@@ -193,6 +113,52 @@ nfl_attendance <- nfl_attendance |>
   left_join(defending_champs, by = "season") |>
   mutate(is_defending_champ = Tm == defending_champ)
 ```
+
+```{r}
+team_season_avg <- nfl_attendance |>
+  group_by(Tm, season) |>
+  summarize(
+    avg_attendance = mean(attendance, na.rm = TRUE),
+    home_avg       = mean(attendance[str_detect(week, "Week")], na.rm = TRUE),
+    is_defending_champ = any(is_defending_champ, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+```{r}
+team_season_avg <- team_season_avg |>
+  arrange(Tm, season) |>
+  group_by(Tm) |>
+  mutate(
+    prev_avg    = lag(avg_attendance),
+    pct_change  = (avg_attendance - prev_avg) / prev_avg * 100
+  ) |>
+  ungroup()
+```
+
+```{r}
+team_season_clean <- team_season_avg |>
+  filter(!season %in% c(2020, 2021), !is.na(pct_change))
+```
+
+```{r}
+champ_changes     <- team_season_clean |> filter(is_defending_champ == TRUE)  |> pull(pct_change)
+non_champ_changes <- team_season_clean |> filter(is_defending_champ == FALSE) |> pull(pct_change)
+
+cat("Defending champions — mean pct change:", round(mean(champ_changes), 2), "%\n")
+cat("All other teams   — mean pct change:", round(mean(non_champ_changes), 2), "%\n")
+cat("Number of defending-champion seasons:", length(champ_changes), "\n\n")
+
+t.test(champ_changes, non_champ_changes)
+```
+
+
+
+
+
+
+
+
 
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
