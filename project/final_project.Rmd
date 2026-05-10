@@ -1,21 +1,9 @@
 ---
-title: "R Notebook"
+title: "Final Project"
+author: "Elizabeth Faragi" 
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
-
-
-Final Project Test Ideas: 
-- I definitely want to run a simulation to see if, when I randomly sample certain chiefs games, where they compare to games that Taylor Swift attended. 
-- In my brain, what I'm going to consider "Taylor Swift Affected Games" are the games she attended and then the two games afterwards. I'll take the mean and SD of those games and consider that the population of Taylor Swift games. I want to then compare randomly sampled games from before 2023 (before Travis and Taylor attended) to those games and see if there is any change/difference.
-- I also kind of want to compare whether or not attendance changes in the two games after. I could maybe compare the games that Taylor attends to the two games following, but I'm unsure of how I could do that. I could find the mean of Taylor games and then the mean of the games following, but I don't know if that would work. 
-- I want to do an hypothesis test but I'm unsure how to go about it. The null would be Taylor Swift doesn't affect in-person Chief's games attendance. The alternate hypothesis would be Taylor Swift does affect it. I'm not exactly sure how I could simulate that, so I'd need some help. 
-- I also think I could analyze how the game she attended (and the game the week after) compare to previous years with the same opponent, to try and control for who they are playing. For example, if Taylor attended the Eagles game in 2024 and the game after was against the 49ers, I could compare how attendence for Chiefs vs. Eagles and Chiefs vs. 49ers attendance was in previous years. 
-- I feel like my biggest struggle right now is getting the data to work with me. I can't even find the mean attendance by week because some of my columns aren't numeric. I tried to even create a function to do it, but I just can't figure it out. I also think with a lot of these ideas I'm going to need to reformat the data to make it easier for me to manipulate, but I'm not sure how to do that.  
-- I'm also under the impression that the null hypothesis is going to remain true because Chiefs games are popular, but that's kind of what I want to prove anyway. 
 
 ```{r}
 library(tidyverse)
@@ -28,7 +16,6 @@ Here, I am loading up the tidyverse and readr to allow myself to analyze the dat
 
 
 ```{r}
-library(readr)
 nfl_attendance_25 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSbp3ApjVnRb1Hn5ZvAljgdUfAo_9h2SUpMDpWohkibZFXXuxdfflDqhQNo8bDv6T6bvagd9ElXe8Tq/pub?gid=1860385982&single=true&output=csv")
 
 nfl_attendance_24 <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTJD4pEJMx2E6ZwgRGAOYgzLA-hlPgi4ncAIChFKTQqj2VQXNB0GHH5WW4JIY2ty7pCMCKgyKd8yvp9/pub?gid=1809535861&single=true&output=csv")
@@ -95,6 +82,9 @@ nfl_attendance <- nfl_attendance %>%
   left_join(superbowl_winners, by = c("season" = "Year"))
 ```
 
+Here, I'm creating a table of the superbowl winners by season. I then merged that table with the main nfl attendance data set so I can easily see all the data in one set.  
+
+
 
 
 ```{r}
@@ -102,17 +92,33 @@ superbowl_winners <- superbowl_winners |>
   mutate(next_season = Year + 1)
 ```
 
+This code creates a column for next_season, basically telling me which season they would be title holders. 
+
+
+
+
 ```{r}
 defending_champs <- superbowl_winners |>
   select(next_season, winner) |>
   rename(season = next_season, defending_champ = winner)
 ```
 
+This creates a new data set called defending_champs that tells us for which season what team is the defending champ of the Superbowl. Basically, this will help me see what team won the Superbowl the year before, making them the defending champ for the next season.  
+
+
+
+
+
 ```{r}
 nfl_attendance <- nfl_attendance |>
   left_join(defending_champs, by = "season") |>
   mutate(is_defending_champ = Tm == defending_champ)
 ```
+
+This joins the defending_champs dataframe to the main nfl_attendance one. This also creates a column that says whether or not a team is the defending champ depending on which season we're in on the dataset. For example, for the Chiefs in season 2025, the column says True for is_defending_champ, but it says False for them in season 2024.  
+
+
+
 
 ```{r}
 team_season_avg <- nfl_attendance |>
@@ -125,6 +131,11 @@ team_season_avg <- nfl_attendance |>
   )
 ```
 
+This creates a data frame called team_season_avg that calculates the average stadium attendance for each team for each season. It also includes the home average for home games. It also adds the is_defending_champs column to this dataset, which makes it easier to see the average attendance of teams in comparison to whether or not they are the defending champs. 
+
+
+
+
 ```{r}
 team_season_avg <- team_season_avg |>
   arrange(Tm, season) |>
@@ -136,10 +147,27 @@ team_season_avg <- team_season_avg |>
   ungroup()
 ```
 
+This creates a column that includes the previous season's average attendance and a column that calculates the percent change between the two. This helps show the difference in attendance from season to season. It also helps to see if being the defending champ changes attendance at all. 
+
+
+
+
 ```{r}
 team_season_clean <- team_season_avg |>
   filter(!season %in% c(2020, 2021), !is.na(pct_change))
 ```
+
+This code cleans the data, accounting for COVID games because attendance is affected by COVID. This code excludes the COVID seasons. 
+
+```{r}
+team_season_clean <- team_season_avg |>
+  mutate(team = coalesce(Tm, "League Totals")) |>
+  filter(!season %in% c(2020, 2021), !is.na(pct_change))
+```
+
+
+
+
 
 ```{r}
 champ_changes     <- team_season_clean |> filter(is_defending_champ == TRUE)  |> pull(pct_change)
@@ -151,9 +179,21 @@ cat("Number of defending-champion seasons:", length(champ_changes), "\n\n")
 
 t.test(champ_changes, non_champ_changes)
 ```
+This code runs a t-test comparing the differences in percent changes between teams who weren't the defending champ and teams that were. It is testing whether or not being the Superbowl defending champ affects attendance at all. 
 
 
-
+```{r}
+year_by_year_league_wide <- team_season_clean |> 
+  filter(str_detect(team, "League Totals")) |>
+  ggplot() +
+  geom_line(aes(x=season, y=avg_attendance)) +
+  geom_smooth(aes(x=season, y=avg_attendance), method="lm") +
+  labs(
+    x = "Year",
+    y = "Average Attendance"
+  )
+year_by_year_league_wide
+```
 
 
 
