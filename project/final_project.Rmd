@@ -82,7 +82,7 @@ nfl_attendance <- nfl_attendance %>%
   left_join(superbowl_winners, by = c("season" = "Year"))
 ```
 
-Here, I'm creating a table of the superbowl winners by season. I then merged that table with the main nfl attendance data set so I can easily see all the data in one set.  
+Here, I'm creating a table of the Superbowl winners by season. I then merged that table with the main nfl attendance data set so I can easily see all the data in one set.  
 
 
 
@@ -154,16 +154,11 @@ This creates a column that includes the previous season's average attendance and
 
 ```{r}
 team_season_clean <- team_season_avg |>
-  filter(!season %in% c(2020, 2021), !is.na(pct_change))
-```
-
-This code cleans the data, accounting for COVID games because attendance is affected by COVID. This code excludes the COVID seasons. 
-
-```{r}
-team_season_clean <- team_season_avg |>
   mutate(team = coalesce(Tm, "League Totals")) |>
   filter(!season %in% c(2020, 2021), !is.na(pct_change))
 ```
+
+This code cleans the data, accounting for COVID games because attendance is affected by COVID. This code excludes the COVID seasons to clean the data, because attendance was lower for COVID seasons and we don't want that to affect our findings. 
 
 
 
@@ -179,7 +174,7 @@ cat("Number of defending-champion seasons:", length(champ_changes), "\n\n")
 
 t.test(champ_changes, non_champ_changes)
 ```
-This code runs a t-test comparing the differences in percent changes between teams who weren't the defending champ and teams that were. It is testing whether or not being the Superbowl defending champ affects attendance at all. 
+This code runs a t-test comparing the differences in percent changes between teams who weren't the defending champ and teams that were. It is testing whether or not being the Superbowl defending champ affects attendance at all. We see that, based on the p-value of 0.8, we cannot reject the null hypothesis. This means that we can't determine from this data that being the Superbowl defending champions affects in-person game attendance for the season.  
 
 
 ```{r}
@@ -194,14 +189,20 @@ year_by_year_league_wide <- team_season_clean |>
   )
 year_by_year_league_wide
 ```
+This code creates a line graph of the average attendance of in-person games year-by-year. We can see that, overall, attendance for all teams is going up since 2019, with a drop from 2023 to 2024. This graph shows why being the Superbowl defending champ might not affect attendance: all teams game attendance is going up, so being the defending champ isn't going to affect much because as a whole, the NFL games are getting more popular. 
+
+
+
+
+FINAL ANALYSIS: 
+Based on this t-test and this data from 2015 to 2025, being the Superbowl defending champ doesn't affect in-person game attendance at all. We were unable to reject the null hypothesis (Being the defending champ doesn't affect attendance) because our t-test revealed a value of 0.8, much higher than the needed 0.05 value. The biggest problem I had was that I didn't have a lot of data to work with and, furthermore, the data itself didn't change much from year to year. I think using in-person game attendance is problematic because there is a limit to how much a stadium can hold and I think that most NFL games are going to sell out regardless, simply because football is a popular sport amongst Americans.  
+
+However, our findings may suggest that NFL in-person attendance as a whole is going up. An interesting story pitch could use this data to determine if NFL in-person attendance has been going up and which teams have seen the biggest jump over the last 10 years. It could also be used to see which teams have seen a decrease in attendance. If we look at the percent change column in the team_season_avg dataframe, we can see some high positives, along with some high negatives. A cool data story could analyze which teams are seeing an increase and which are seeing a decrease, as well as if NFL attendance as a whole is increasing. 
+
+Further reporting could include analyzing ticket prices as well. Maybe the Buffalo Bills saw a 5.26% decrease in in-person attendance from 2016 to 2017 because their ticket prices went up. I'd also like to see if TV data could aid in determining whether or not being the Superbowl defending champ affects viewership. I was unable to find public TV data for NFL games, but if I could, I'd like to see if the defending champ team got more TV views throughout the season in comparison to other games. That could be an interesting story on whether or not Superbowl defending champ affects TV viewership and, furthermore, which teams get the most traction on TV. This could help TV stations decide which games they want to air to get the more action on their station. 
 
 
 
 
 
-
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
